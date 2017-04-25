@@ -1,1 +1,7 @@
-
+POP DebugPopCode
+LIT DebugLitCode
+CALL DebugCallCode
+RETURN DebugReturnCode
+LINE DebugLineCode
+FUNCTION DebugFunctionCode
+FORMAL DebugFormalCode
