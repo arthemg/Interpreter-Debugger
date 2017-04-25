@@ -1,0 +1,15 @@
+HALT HaltCode
+POP PopCode
+FALSEBRANCH FalseBranchCode
+GOTO GotoCode
+STORE StoreCode
+LOAD LoadCode
+LIT LitCode
+ARGS ArgsCode
+CALL CallCode
+RETURN ReturnCode
+BOP BopCode
+READ ReadCode
+WRITE WriteCode
+LABEL LabelCode
+DUMP DumpCode
