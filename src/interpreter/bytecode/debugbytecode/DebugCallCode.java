@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 package interpreter.bytecode.debugbytecode;
+
 import interpreter.VirtualMachine;
 import interpreter.debugger.DebuggerVM;
 import interpreter.bytecode.CallCode;
-import java.util.*;
 
 /**
  *
@@ -18,22 +18,19 @@ public class DebugCallCode extends CallCode
 
     public DebugCallCode() 
     {
-        this.byteCodeName = ("DebugCallCode");
+        this.byteCodeName = "DebugCallCode";
     }
 
     @Override
-    public void execute(VirtualMachine vm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void init(Vector<String> args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String dumpOut(VirtualMachine vm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    public void execute(VirtualMachine vm) 
+    {
+        super.execute(vm);
+        
+        //Cast VirtualMachine into DebuggerVM
+        DebuggerVM debugVM = (DebuggerVM) vm;
+        
+        //DebuggerVM execute
+        debugVM.newFctEnvRecord();
+        debugVM.setCurrentFct();
+    }    
 }
