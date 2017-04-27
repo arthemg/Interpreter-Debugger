@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 package interpreter.bytecode.debugbytecode;
+
 import interpreter.VirtualMachine;
 import interpreter.debugger.DebuggerVM;
 import interpreter.bytecode.PopCode;
-import java.util.*;
 
 /**
  *
@@ -18,5 +18,17 @@ public class DebugPopCode extends PopCode
     public DebugPopCode()
     {
         this.byteCodeName = "DebugPopCode";
+    }
+    
+    @Override
+    public void execute(VirtualMachine vm)
+    {
+        super.execute(vm);
+        
+        //Cast VirtualMachine into DebuggerVM
+        DebuggerVM debugVM = (DebuggerVM) vm;
+        
+        debugVM.doPop(val);
+        
     }
 }
