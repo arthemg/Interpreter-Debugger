@@ -25,20 +25,31 @@ public class DebugFunctionCode extends ByteCode
     }
 
     @Override
-    public void execute(VirtualMachine vm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void execute(VirtualMachine vm) 
+    {
+        //Cast VirtualMachine into DebuggerVM
+        DebuggerVM debugVM = (DebuggerVM) vm;
+        
+        //Set new function info
+        debugVM.setFunctionInfo(functionName, firstLine, lastLine);
+        //Remove the top fucntion "current Function"
+        debugVM.popCurrentFct();
     }
 
     @Override
-    public void init(Vector<String> args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void init(Vector<String> args)
+    {
+        if(!args.isEmpty())
+        {
+            functionName = args.get(0);
+            firstLine = Integer.parseInt(args.get(1));
+            lastLine = Integer.parseInt(args.get(2));
+        }
     }
 
     @Override
-    public String dumpOut(VirtualMachine vm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String dumpOut(VirtualMachine vm) 
+    {
+        return this.getByteCode();
     }
-    
-    
-    
 }
