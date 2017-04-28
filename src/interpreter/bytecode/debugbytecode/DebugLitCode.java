@@ -33,7 +33,7 @@ public class DebugLitCode extends LitCode
         //check if we need to push the variable
         if(pushVariable)
         {
-            debugVM.pushSymbol();
+            debugVM.pushSymbol(variable);
         }
     }
     
