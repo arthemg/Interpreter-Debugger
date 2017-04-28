@@ -2,6 +2,7 @@ package interpreter;
 
 import interpreter.debugger.DebugByteCodeLoader;
 import interpreter.debugger.DebugCodeTable;
+import interpreter.debugger.ui.UI;
 import java.io.*;
 import java.util.*;
 
