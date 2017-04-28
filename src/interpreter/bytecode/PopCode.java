@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class PopCode extends ByteCode 
 {
-    private int stackPop;
+    public int stackPop;
     
     public PopCode()
     {
