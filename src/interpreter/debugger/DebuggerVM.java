@@ -67,6 +67,7 @@ public class DebuggerVM extends VirtualMachine
     boolean enteredFct;
     boolean stepOutPending;
     boolean stopDebugger;
+    int activationFrameSize = 0;
     
     public DebuggerVM(Program program, String sourceFile, HashSet<Integer> breakPoints) throws IOException, FileNotFoundException
     {
@@ -92,7 +93,91 @@ public class DebuggerVM extends VirtualMachine
             sourceLineBpTracker.add(currentStringTrack);
         }
     }
+    
+    @Override
+    public void executeProgram() throws ByteCodeException
+    {
+         //Start the program
+        byteCode = program.getByteCodeAddress(programCounter);
+        progRunning = true; 
+        
+        while (progRunning)
+        {
+            if(stepOutPending)
+            {
+                if(activationFrameSize > fctEnvStack.size())
+                {
+                    stepOutPending = false;
+                    break;
+                }
+            }
+            //Start the counter
+            programCounter++; 
+            //Execture bytecode
+            byteCode.execute(this);
 
+            // check if Dumping is on if true print out the debugMessages
+            if (dumping)
+            {
+                //do not print null messages
+                //print bytecode debuggerMessage followed by the frames/stacks
+                if (byteCode.dumpOut(this) != null)
+                {
+                    System.out.println(byteCode.dumpOut(this));
+                }
+                
+                runStack.printDump();
+                System.out.println();
+
+            }
+            //get another bytecode
+            if (progRunning)
+            {
+                byteCode = program.getByteCodeAddress(programCounter);
+            }
+        }
+    }
+    
+    public boolean setBreakPoint(int lineNum)
+    {
+        if(breakPoints.contains(lineNum))
+        {
+            sourceLineBpTracker.get(lineNum-1).setBreakPointBool();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public boolean clearBreakPoint(int lineNum)
+    {
+        if(breakPoints.contains(lineNum))
+        {   
+            sourceLineBpTracker.get(lineNum-1).unsetBreakPointBool();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public void clearAllBrakPOints()
+    {
+        Iterator it = breakPoints.iterator();
+        
+        while(it.hasNext())
+        {
+            int index = (int)it.next();
+            if(index>0)
+            {
+              sourceLineBpTracker.get(index-1).unsetBreakPointBool();
+            }
+        }
+    }
+    
     public void pushSymbolOffset(String variable, int offset) 
     {
         if(!fctEnvStack.empty())
@@ -169,5 +254,69 @@ public class DebuggerVM extends VirtualMachine
        {
            fctEnvStack.pop();
        }
+    }
+    
+    public Vector<bpTracker> getFunctionSourceCode()
+    {
+        Vector<bpTracker> fctSourceCode = new Vector<>();
+        int firstLine;
+        int lastLine;
+        
+        if(!fctEnvStack.empty())
+        {
+            FunctionEnvironmentRecord workingFncRecord = fctEnvStack.peek();
+            firstLine = workingFncRecord.getStartLine();
+            lastLine = workingFncRecord.getEndLine();
+            
+            for(int i = (firstLine - 1); i < lastLine; i++)
+            {
+                fctSourceCode.add(sourceLineBpTracker.get(i));
+            }            
+        }
+        return fctSourceCode;
+    }
+    
+    public int getFuntctionStartLine()
+    {
+        FunctionEnvironmentRecord workingFncRecord = fctEnvStack.peek();
+        int functionStartLine = workingFncRecord.getStartLine();
+        
+        return functionStartLine;
+    }
+    
+    public int getFunctionEndLine()
+    {
+        FunctionEnvironmentRecord workingFncRecord = fctEnvStack.peek();
+        int functionEndLine = workingFncRecord.getEndLine();
+        
+        return functionEndLine;
+    }
+    
+    public int getCurrentLine()
+    {
+        if(!fctEnvStack.empty())
+        {
+            FunctionEnvironmentRecord workingFncRecord = fctEnvStack.peek();
+            int functionCurrentLine = workingFncRecord.getEndLine();
+            
+            return functionCurrentLine;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    public FunctionEnvironmentRecord getEnvironmentRecord()
+    {
+         FunctionEnvironmentRecord workingFncEnvRecord = fctEnvStack.peek();
+         
+         return workingFncEnvRecord;
+    }
+    
+    public void stepOutPending()
+    {
+        stepOutPending = true;
+        activationFrameSize = fctEnvStack.size();
     }
 }
