@@ -10,12 +10,12 @@ import java.util.*;
  */
 public abstract class ByteCode 
 {   
-    private String byteCodeName;  //name of the byte code
+    public String byteCodeName;  //name of the byte code
     private String byteCode;      // actuall byte code
    
    /**
     * Default constructor to set the name of byte code
-    * used laterin program to resolve addresses and label
+    * used later in program to resolve addresses and label
     * @param byteCodeName 
     */
     public ByteCode(String byteCodeName)
