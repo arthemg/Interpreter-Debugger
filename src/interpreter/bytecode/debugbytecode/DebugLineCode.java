@@ -28,7 +28,7 @@ public class DebugLineCode extends ByteCode
         //Cast VirtualMachine into DebuggerVM
         DebuggerVM debugVM = (DebuggerVM) vm;
         
-        debugVM.setCurrentLineNumber();
+        debugVM.setCurrentLineNumber(currentLine);
     }
 
     @Override
