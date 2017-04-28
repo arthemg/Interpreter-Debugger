@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class RunTimeStack 
 {
-    private int stackPointer;
+    int stackPointer;
     private Vector runStack;
     private Stack<Integer> framePointer;
     
@@ -205,5 +205,10 @@ public class RunTimeStack
             formatDumpOut(0, stackPointer - 1);
         }
 
+    }
+    
+    public int getStackPointer()
+    {
+        return this.stackPointer;
     }
 }
