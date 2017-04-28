@@ -1,6 +1,9 @@
 package interpreter;
 
+import interpreter.debugger.DebugByteCodeLoader;
+import interpreter.debugger.DebugCodeTable;
 import java.io.*;
+import java.util.*;
 
 /**
  * <pre>
@@ -40,6 +43,24 @@ public class Interpreter {
 			System.out.println("***Incorrect usage, try: java interpreter.Interpreter <file>");
 			System.exit(1);
 		}
+                
+                if(args[0].toLowerCase() == "-d")
+                {
+                    String sourceFile = args[1] + ".x";
+                    String byteCodeFile = args[1] + ".x.cod";
+                    
+                    CodeTable.init();
+                    DebugCodeTable.init();
+                    
+                    DebugByteCodeLoader bcl = new DebugByteCodeLoader(byteCodeFile);
+                    Program program = bcl.loadCodes();
+                    
+                    HashSet<Integer> breakPoints = bcl.getBreakPoints();
+                    new UI(program,sourceFile, breakPoints).run();
+                }
+                else
+                {
 		(new Interpreter(args[0])).run();
+                }
 	}
 }
