@@ -28,7 +28,7 @@ public class DebugPopCode extends PopCode
         //Cast VirtualMachine into DebuggerVM
         DebuggerVM debugVM = (DebuggerVM) vm;
         
-        debugVM.doPop(val);
+        debugVM.doPop(stackPop);
         
     }
 }
