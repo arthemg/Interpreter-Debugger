@@ -17,7 +17,7 @@ public class VirtualMachine
     private boolean dumping;
     private boolean progRunning;
     private int programCounter;
-    private final RunTimeStack runStack;
+    public final RunTimeStack runStack;
     private final Stack<Integer> stackAddress;
     private ByteCode byteCode;
 
@@ -172,6 +172,11 @@ public class VirtualMachine
     public void popFrame()
     {
         runStack.popFrame();
+    }
+    
+    public void halt()
+    {
+        progRunning = false;
     }
     
     
