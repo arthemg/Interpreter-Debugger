@@ -76,6 +76,7 @@ public class DebuggerVM extends VirtualMachine
         topFctEnvRecord = new FunctionEnvironmentRecord();
         sourceLineBpTracker = new Vector<>();
         this.breakPoints = breakPoints;
+        stopDebugger = false;
         
         FunctionEnvironmentRecord constructorFctEnvRecord = new FunctionEnvironmentRecord();
         constructorFctEnvRecord.setStartLine(1);
@@ -319,4 +320,18 @@ public class DebuggerVM extends VirtualMachine
         stepOutPending = true;
         activationFrameSize = fctEnvStack.size();
     }
+    
+    public boolean debuggerRunning() throws ByteCodeException
+    {
+        if(!stopDebugger)
+        {
+            this.executeProgram();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
 }
