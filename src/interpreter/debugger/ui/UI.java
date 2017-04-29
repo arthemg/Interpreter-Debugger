@@ -5,10 +5,12 @@
  */
 package interpreter.debugger.ui;
 
+import com.sun.javafx.binding.StringFormatter;
 import interpreter.*;
-import interpreter.debugger.DebuggerVM;
+import interpreter.debugger.*;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.*;
+import sun.security.krb5.internal.KDCOptions;
 
 /**
  *
@@ -18,7 +20,7 @@ public class UI
 {
     DebuggerVM debugVM;
     
-    public UI(Program program, String sourceFile, HashSet<Integer> breakPoints) throws IOException 
+    public UI(Program program, String sourceFile, Set<Integer> breakPoints) throws IOException 
     {
         debugVM = new DebuggerVM(program, sourceFile, breakPoints);
     }
@@ -119,19 +121,74 @@ public class UI
         }
         
     }
-    public void run() 
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     private void displayariables() 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+        FunctionEnvironmentRecord topFcnEnvRecord = debugVM.getEnvironmentRecord();
+        SymbolTable symTable = topFcnEnvRecord.getSymbolTable();
+        
     }
 
     private void displayCodeSnipet() 
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Vector<DebuggerVM.bpTracker> sourceCode = debugVM.getFunctionSourceCode();
+        int currentLine = debugVM.getCurrentLine();
+        int startLine = debugVM.getFuntctionStartLine();
+        int endLine = debugVM.getFunctionEndLine();
+        
+        currentLine = currentLine - startLine;
+        
+        for(int i = 0; i<sourceCode.size(); i++)
+        {
+            String output="";
+            DebuggerVM.bpTracker sourceLine = sourceCode.get(i);
+            
+            //check for break points
+            if(sourceLine.getBreakPointBool())
+            {
+                output += " *";
+            }
+            else
+            {
+                output += " ";
+            }
+            
+            output += String.format("%3d.", (i + startLine));
+            output += String.format("%-50s", sourceLine.getSourceLine());
+            
+            //check if we are printing current line
+            if(i == currentLine)
+            {
+                output +=String.format("-3s","<<<<<<------");
+            }
+            else
+            {
+                output +=String.format("-3s"," ");
+            }
+            System.out.println(output);
+        }
+    }
+    
+    public void run() throws ByteCodeException
+    {
+        String userInput = "";
+        Scanner in = new Scanner(System.in);
+        
+        displayCodeSnipet();
+        System.out.println("Type ? for help");
+        
+        do 
+        {            
+            this.prompt();
+            userInput = in.nextLine();
+            
+            String[] splitUserInput = userInput.split("\\s");
+            if(!splitUserInput[0].equals("q"))
+            {
+                userInput(splitUserInput);
+            }
+        } while (!userInput.equals("q"));
     }
     
 }
