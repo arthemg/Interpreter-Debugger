@@ -89,6 +89,10 @@ public class FunctionEnvironmentRecord
         return currLine;
     }
     
+     public SymbolTable getSymbolTable()
+     {
+         return this.symTable;
+     }
     
     public void dump()
     {
