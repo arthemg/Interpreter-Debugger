@@ -56,7 +56,7 @@ public class Interpreter {
                     DebugByteCodeLoader bcl = new DebugByteCodeLoader(byteCodeFile);
                     Program program = bcl.loadCodes();
                     
-                    HashSet<Integer> breakPoints = bcl.getBreakPoints();
+                    Set<Integer> breakPoints = bcl.getBreakPoints();
                     new UI(program,sourceFile, breakPoints).run();
                 }
                 else
