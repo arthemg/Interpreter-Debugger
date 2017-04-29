@@ -19,7 +19,10 @@ import java.util.*;
  * if there is a breakpoint set at that line similar to the SymbolTable
  *
  */
-class bpTracker
+public class DebuggerVM extends VirtualMachine
+{
+    
+public static class bpTracker
 {
     boolean breakPoint;
     String sourceLine;
@@ -57,11 +60,10 @@ class bpTracker
     
 }
 
-public class DebuggerVM extends VirtualMachine
-{   
+   
     BufferedReader sourceFile;
     Stack<FunctionEnvironmentRecord> fctEnvStack;
-    HashSet<Integer> breakPoints;
+    Set<Integer> breakPoints;
     FunctionEnvironmentRecord topFctEnvRecord;
     Vector<bpTracker> sourceLineBpTracker;
     boolean enteredFct;
@@ -69,7 +71,7 @@ public class DebuggerVM extends VirtualMachine
     boolean stopDebugger;
     int activationFrameSize = 0;
     
-    public DebuggerVM(Program program, String sourceFile, HashSet<Integer> breakPoints) throws IOException, FileNotFoundException
+    public DebuggerVM(Program program, String sourceFile, Set<Integer> breakPoints) throws IOException, FileNotFoundException
     {
         super(program);
         //Initialize all the variables
@@ -333,5 +335,7 @@ public class DebuggerVM extends VirtualMachine
             return false;
         }
     }
+
+   
     
 }
