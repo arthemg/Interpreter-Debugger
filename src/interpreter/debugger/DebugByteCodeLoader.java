@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class DebugByteCodeLoader extends ByteCodeLoader 
 {
-    HashSet<Integer> breakPoints; //HashSet to keep track of the breakpoint Lines
+    Set<Integer> breakPoints; //Set to keep track of the breakpoint Lines
     
     public DebugByteCodeLoader(String programFile) throws IOException {
         super(programFile);
@@ -30,7 +30,7 @@ public class DebugByteCodeLoader extends ByteCodeLoader
         
     }
     
-    public HashSet<Integer> getBreakPoints()
+    public Set<Integer> getBreakPoints()
     {
         return breakPoints;
     }
