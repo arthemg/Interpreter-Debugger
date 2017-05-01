@@ -235,6 +235,13 @@ public static class bpTracker
         {
             fctEnvStack.peek().setCurrentLineNumber(currentLine);
         }
+        if(!enteredFct)
+        {
+            if(sourceLineBpTracker.get(currentLine-1).breakPoint)
+            {
+                super.halt();
+            }
+        }
         
     }
 
@@ -282,6 +289,10 @@ public static class bpTracker
                 fctSourceCode.add(sourceLineBpTracker.get(i));
             }            
         }
+        else
+        {
+            fctSourceCode = sourceLineBpTracker;
+        }
         return fctSourceCode;
     }
     
@@ -306,7 +317,7 @@ public static class bpTracker
         if(!fctEnvStack.empty())
         {
             FunctionEnvironmentRecord workingFncRecord = fctEnvStack.peek();
-            int functionCurrentLine = workingFncRecord.getEndLine();
+            int functionCurrentLine = workingFncRecord.getCurrLine();
             
             return functionCurrentLine;
         }
@@ -340,6 +351,14 @@ public static class bpTracker
         {
             return false;
         }
+    }
+    
+    @Override
+    public void halt()
+    {
+        super.halt();
+        
+        stopDebugger = true;
     }
 
    
