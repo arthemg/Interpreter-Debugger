@@ -25,7 +25,7 @@ public class LoadCode extends ByteCode
     @Override
     public void execute(VirtualMachine vm)
     {
-        vm.getOffset(this.offset);
+        vm.loadStackOffset(this.offset);
     }
     
     @Override
