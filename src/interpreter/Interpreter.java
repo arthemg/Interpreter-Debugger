@@ -40,15 +40,17 @@ public class Interpreter {
 	}
 
 	public static void main(String args[]) throws IOException, ByteCodeException, InstantiationException, ClassNotFoundException,IllegalAccessException {
-		if (args.length == 0) {
+                String sourceFile = "";	
+                String byteCodeFile ="";
+                if (args.length == 0) {
 			System.out.println("***Incorrect usage, try: java interpreter.Interpreter <file>");
 			System.exit(1);
 		}
                 
-                if(args[0].toLowerCase() == "-d")
+                if(args[0].equals("-d"))
                 {
-                    String sourceFile = args[1] + ".x";
-                    String byteCodeFile = args[1] + ".x.cod";
+                    sourceFile = args[1] + ".x";
+                    byteCodeFile = args[1] + ".x.cod";
                     
                     CodeTable.init();
                     DebugCodeTable.init();
@@ -57,11 +59,13 @@ public class Interpreter {
                     Program program = bcl.loadCodes();
                     
                     Set<Integer> breakPoints = bcl.getBreakPoints();
-                    new UI(program,sourceFile, breakPoints).run();
+                    
+                    new UI(program, sourceFile, breakPoints).run();
                 }
                 else
                 {
-		(new Interpreter(args[0])).run();
+                    byteCodeFile = args[0];
+                    (new Interpreter(byteCodeFile)).run();
                 }
 	}
 }
