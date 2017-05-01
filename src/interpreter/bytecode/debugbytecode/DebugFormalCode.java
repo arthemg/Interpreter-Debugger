@@ -30,7 +30,7 @@ public class DebugFormalCode extends ByteCode
         //Cast VirtualMachine into DebuggerVM
         DebuggerVM debugVM = (DebuggerVM) vm;
         
-        offset = Integer.parseInt(value);
+        offset = Integer.parseInt(this.value);
         debugVM.pushSymbolOffset(variable, offset);
     }
 
