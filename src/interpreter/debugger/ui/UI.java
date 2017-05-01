@@ -50,11 +50,11 @@ public class UI
     public void userInput(String[] in) throws ByteCodeException
     {
         String input = in[0].toLowerCase();
-        if(input == "?")
+        if(input.equals("?") )
         {
             helpMenu();
         }
-        else if(input == "sbp")
+        else if(input.equals("sbp"))
         {
             for(int i = 1; i < in.length; i++)
             {
@@ -70,7 +70,7 @@ public class UI
                 }
             }
         }
-        else if(input == "cbp")
+        else if(input.equals("cbp"))
         {
             for(int i = 1; i < in.length; i++)
             {
@@ -85,19 +85,20 @@ public class UI
                 }
             }
         }
-        else if(input == "cabp")
+        else if(input.equals("cabp"))
         {
             debugVM.clearAllBrakPOints();
+            System.out.println("All Break Points have been cleared.");
         }
-        else if(input == "pvar")
+        else if(input.equals("pvar"))
         {
             displayariables();
         }
-        else if(input == "pr")
+        else if(input.equals("pr"))
         {
             this.displayCodeSnipet();
         }
-        else if(input == "so")
+        else if(input.equals("so"))
         {
             debugVM.stepOutPending();
             //check if the debugger still running
@@ -106,14 +107,14 @@ public class UI
                 this.displayCodeSnipet();
             }
         }
-        else if(input == "c")
+        else if(input.equals("c"))
         {
            if(debugVM.debuggerRunning())
             {
                 this.displayCodeSnipet();
             }
         }
-        else if(input == "q")
+        else if(input.equals("q"))
         {
             System.out.println("Good Bye!");
             System.exit(1);
@@ -129,12 +130,12 @@ public class UI
         
     }
 
-    private void displayCodeSnipet() 
+    public void displayCodeSnipet() 
     {
         Vector<DebuggerVM.bpTracker> sourceCode = debugVM.getFunctionSourceCode();
         int currentLine = debugVM.getCurrentLine();
         int startLine = debugVM.getFuntctionStartLine();
-        int endLine = debugVM.getFunctionEndLine();
+        
         
         currentLine = currentLine - startLine;
         
@@ -146,7 +147,7 @@ public class UI
             //check for break points
             if(sourceLine.getBreakPointBool())
             {
-                output += " *";
+                output += "*";
             }
             else
             {
@@ -159,11 +160,11 @@ public class UI
             //check if we are printing current line
             if(i == currentLine)
             {
-                output +=String.format("-3s","<<<<<<------");
+                output +=String.format("<<<<<<------");
             }
             else
             {
-                //output +=String.format("-3s"," ");
+                output +=String.format(" ");
             }
             System.out.println(output);
         }
