@@ -5,12 +5,11 @@
  */
 package interpreter.debugger.ui;
 
-import com.sun.javafx.binding.StringFormatter;
 import interpreter.*;
 import interpreter.debugger.*;
 import java.io.IOException;
 import java.util.*;
-import sun.security.krb5.internal.KDCOptions;
+
 
 /**
  *
@@ -164,7 +163,7 @@ public class UI
             }
             else
             {
-                output +=String.format("-3s"," ");
+                //output +=String.format("-3s"," ");
             }
             System.out.println(output);
         }
@@ -172,7 +171,7 @@ public class UI
     
     public void run() throws ByteCodeException
     {
-        String userInput = "";
+        String userInput;
         Scanner in = new Scanner(System.in);
         
         displayCodeSnipet();
@@ -184,7 +183,7 @@ public class UI
             userInput = in.nextLine();
             
             String[] splitUserInput = userInput.split("\\s");
-            if(!splitUserInput[0].equals("q"))
+            if(!(splitUserInput[0].equals("q")))
             {
                 userInput(splitUserInput);
             }
