@@ -13,13 +13,13 @@ import java.util.*;
  */
 public class VirtualMachine 
 {
-    private final Program program;
-    private boolean dumping;
-    private boolean progRunning;
-    private int programCounter;
+    public  final Program program;
+    public boolean dumping;
+    public  boolean progRunning;
+    public int programCounter;
     public final RunTimeStack runStack;
-    private final Stack<Integer> stackAddress;
-    private ByteCode byteCode;
+    public final Stack<Integer> stackAddress;
+    public ByteCode byteCode;
 
     public VirtualMachine(Program program) 
     {
@@ -219,4 +219,9 @@ public class VirtualMachine
             }
         }
     }
+     
+     public int loadStackOffset(int offset)
+     {
+         return runStack.load(offset);
+     }
 }
