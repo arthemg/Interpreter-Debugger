@@ -84,7 +84,7 @@ public class RunTimeStack
         //save the value returned from a function
         int returnedVal = this.pop();
         //adjust the current stackpointer with the old frame
-        this.stackPointer = (framePointer.pop()) + 1;
+        this.stackPointer = ((framePointer.pop()) + 1);
         
         //add the value received at the end of the fucntion
         this.push(returnedVal);
@@ -132,7 +132,7 @@ public class RunTimeStack
        
         
         int getVal  = (int)runStack.get(topFrame + offset);
-        this.push(getVal);
+        //this.push(getVal);
         return getVal;
         
     }
@@ -210,5 +210,21 @@ public class RunTimeStack
     public int getStackPointer()
     {
         return this.stackPointer;
+    }
+
+    int load(int offset) 
+    {
+        int topFrame = 0;
+        
+        if(!framePointer.isEmpty())
+        {
+            //make sure we addjust by +1 to use correct count
+            topFrame = (framePointer.peek()) + 1;
+        }
+       
+        
+        int getVal  = (int)runStack.get(topFrame + offset);
+        this.push(getVal);
+        return getVal;
     }
 }
