@@ -61,14 +61,14 @@ public static class bpTracker
 }
 
    
-    BufferedReader sourceFile;
+    BufferedReader source;
     Stack<FunctionEnvironmentRecord> fctEnvStack;
     Set<Integer> breakPoints;
     FunctionEnvironmentRecord topFctEnvRecord;
     Vector<bpTracker> sourceLineBpTracker;
-    boolean enteredFct;
-    boolean stepOutPending;
-    boolean stopDebugger;
+    boolean enteredFct =  false;
+    boolean stepOutPending = false;
+    boolean stopDebugger = false;
     int activationFrameSize = 0;
     
     public DebuggerVM(Program program, String sourceFile, Set<Integer> breakPoints) throws IOException, FileNotFoundException
@@ -78,23 +78,29 @@ public static class bpTracker
         topFctEnvRecord = new FunctionEnvironmentRecord();
         sourceLineBpTracker = new Vector<>();
         this.breakPoints = breakPoints;
-        stopDebugger = false;
+        fctEnvStack = new Stack<>();
+        
+        
+        //Read source file and initialize all the source lines and breakpoints in a vector
+        this.source = new BufferedReader(new FileReader(sourceFile));
+        String currentString = "";
+        do{
+            currentString = this.source.readLine();
+            if(currentString != null){
+             
+       
+        
+       
+            bpTracker currentStringTrack = new bpTracker(currentString, false);
+            sourceLineBpTracker.add(currentStringTrack);
+            }
+        }while(currentString != null);
         
         FunctionEnvironmentRecord constructorFctEnvRecord = new FunctionEnvironmentRecord();
         constructorFctEnvRecord.setStartLine(1);
         int endLine = sourceLineBpTracker.size();
         constructorFctEnvRecord.setEndLine(endLine);
         fctEnvStack.push(constructorFctEnvRecord);
-        
-        //Read source file and initialize all the source lines and breakpoints in a vector
-        this.sourceFile = new BufferedReader(new FileReader(sourceFile));
-        String currentString = this.sourceFile.readLine();
-        
-        while(currentString != null)
-        {
-            bpTracker currentStringTrack = new bpTracker(currentString, false);
-            sourceLineBpTracker.add(currentStringTrack);
-        }
     }
     
     @Override
@@ -194,7 +200,7 @@ public static class bpTracker
     {
         if(!fctEnvStack.empty())
         {
-            fctEnvStack.peek().setFunctionInfo(functionName, lastLine, lastLine);
+            fctEnvStack.peek().setFunctionInfo(functionName, firstLine, lastLine);
         }
         popCurrentFct();
         if(firstLine > 0)
