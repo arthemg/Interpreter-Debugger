@@ -21,7 +21,7 @@ public class DebugFunctionCode extends ByteCode
 
     public DebugFunctionCode() 
     {
-        super("DebugFunctionCode");
+        super("DebugFormalCode");
     }
 
     @Override
