@@ -1,6 +1,7 @@
 package interpreter;
 
 import interpreter.bytecode.*;
+import interpreter.bytecode.debugbytecode.DebugCallCode;
 import java.util.*;
 
 
@@ -87,10 +88,13 @@ public class Program
                             break;
 
                         case "GotoCode":
-                        GotoCode gotoCode = (GotoCode) byteCode;
-                        gotoCode.setAddress(Integer.toString(address));
+                            GotoCode gotoCode = (GotoCode) byteCode;
+                            gotoCode.setAddress(Integer.toString(address));
                         //System.out.println("GotoCode: "+address);
                         break;
+                        case "DebugCallCode":
+                            callCode = (DebugCallCode) byteCode;
+                            callCode.setAddress(Integer.toString(address));
                     }
                 }
             }
@@ -104,7 +108,7 @@ public class Program
     {
         String byteCodeName = bytecode.getByteCodeName();
 
-        if (byteCodeName.equals("CallCode") || byteCodeName.equals("FalseBranchCode") || byteCodeName.equals("GotoCode"))
+        if (byteCodeName.equals("CallCode") || byteCodeName.equals("FalseBranchCode") || byteCodeName.equals("GotoCode")|| byteCodeName.equals("DebugCallCode"))
         {
             String codeLabel = null;
             //Swtich to retrieve addresses based on the codeName and add them to map later
@@ -124,6 +128,9 @@ public class Program
                     GotoCode gotoByteCode = (GotoCode) bytecode;
                     codeLabel = gotoByteCode.getAddress();
                     break;
+                case "DebugCallCode":
+                    callCode = (DebugCallCode) bytecode;
+                    codeLabel = callCode.getAddress();
             }
            
             if (!byteCodeHash.containsKey(codeLabel))
