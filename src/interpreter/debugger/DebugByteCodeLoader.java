@@ -70,14 +70,8 @@ public class DebugByteCodeLoader extends ByteCodeLoader
                     //ByteCode exists we store it and create a class
                     String byteCode = splitString[0];
                     
-                    if (CodeTable.getCode(byteCode) != null) 
-                    {
-                        String byteCodeInst = CodeTable.getCode(byteCode);
-                        
-                        //New Instance for every bytecode
-                        bytecode = (ByteCode) (Class.forName("interpreter.bytecode." + byteCodeInst).newInstance());
-                    }
-                    else if(DebugCodeTable.getDebugCode(byteCode) != null)
+                   
+                    if(DebugCodeTable.getDebugCode(byteCode) != null)
                     {
                         if(byteCode.equals("LINE"))
                         {
@@ -85,7 +79,14 @@ public class DebugByteCodeLoader extends ByteCodeLoader
                         }
                         
                         String debugByteCodeInst = DebugCodeTable.getDebugCode(byteCode);
-                        bytecode = (ByteCode) (Class.forName("interpreter.bytecode.debugbytecode" + debugByteCodeInst).newInstance());
+                        bytecode = (ByteCode) (Class.forName("interpreter.bytecode.debugbytecode." + debugByteCodeInst).newInstance());
+                    }
+                    else if (CodeTable.getCode(byteCode) != null) 
+                    {
+                        String byteCodeInst = CodeTable.getCode(byteCode);
+                        
+                        //New Instance for every bytecode
+                        bytecode = (ByteCode) (Class.forName("interpreter.bytecode." + byteCodeInst).newInstance());
                     }
                         //Add args to bytecode
                         for (int i = 1; i < splitString.length; i++) 
