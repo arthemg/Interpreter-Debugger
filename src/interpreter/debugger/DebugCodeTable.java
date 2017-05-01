@@ -20,13 +20,13 @@ public class DebugCodeTable {
      */
     public static void init()
     {
-        codeTable.put("POP", "DebugPopCode");
-        codeTable.put("LIT", "DebugLitCode");
         codeTable.put("CALL", "DebugCallCode");
-        codeTable.put("RETURN", "DebugReturnCode");
-        codeTable.put("LINE", "DebugLineCode");
-        codeTable.put("FUNCTION", "DebugFunctionCode");
         codeTable.put("FORMAL", "DebugFormalCode");
+        codeTable.put("FUNCTION", "DebugFunctionCode");
+        codeTable.put("LINE", "DebugLineCode");
+        codeTable.put("LIT", "DebugLitCode");
+        codeTable.put("POP", "DebugPopCode");
+        codeTable.put("RETURN", "DebugReturnCode");
     }
     
     
@@ -36,7 +36,7 @@ public class DebugCodeTable {
      * @return
      * @throws ByteCodeException 
      */
-    public static String getDebugCode(String byteCode) throws ByteCodeException
+    public static String getDebugCode(String byteCode)
     {
         if(codeTable.containsKey(byteCode))
         {
@@ -44,7 +44,7 @@ public class DebugCodeTable {
         }
         else
         {
-            throw new ByteCodeException("Code not found, check if the code exists: " + byteCode);
+            return null;
         }
     }
 }
