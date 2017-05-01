@@ -42,7 +42,7 @@ public class CodeTable
      * @return
      * @throws ByteCodeException 
      */
-    public static String getCode(String byteCode) throws ByteCodeException
+    public static String getCode(String byteCode)
     {
         if(codeTable.containsKey(byteCode))
         {
@@ -50,7 +50,7 @@ public class CodeTable
         }
         else
         {
-            throw new ByteCodeException("Code not found, check if the code exists: " + byteCode);
+            return null;
         }
     }
 }
