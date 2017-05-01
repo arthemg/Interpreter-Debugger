@@ -27,6 +27,7 @@ public class DebugLitCode extends LitCode
     @Override
     public void execute(VirtualMachine vm)
     {
+        super.execute(vm);
         //Cast VirtualMachine into DebuggerVM
         DebuggerVM debugVM = (DebuggerVM) vm;
         
@@ -37,6 +38,7 @@ public class DebugLitCode extends LitCode
         }
     }
     
+    @Override
     public void init(Vector<String> args)
     {
         super.init(args);
