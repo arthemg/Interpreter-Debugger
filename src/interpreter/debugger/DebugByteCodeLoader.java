@@ -10,8 +10,6 @@ import interpreter.ByteCodeLoader;
 import interpreter.CodeTable;
 import interpreter.Program;
 import interpreter.bytecode.ByteCode;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
@@ -24,12 +22,16 @@ public class DebugByteCodeLoader extends ByteCodeLoader
 {
     Set<Integer> breakPoints; //Set to keep track of the breakpoint Lines
     
-    public DebugByteCodeLoader(String programFile) throws IOException {
+    public DebugByteCodeLoader(String programFile) throws IOException 
+    {
         super(programFile);
         this.breakPoints = new HashSet<>();
-        
     }
     
+    /**
+     * Get the set of all lines that can have breakpoints
+     * @return 
+     */
     public Set<Integer> getBreakPoints()
     {
         return breakPoints;
