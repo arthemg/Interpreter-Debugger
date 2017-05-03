@@ -40,13 +40,14 @@ public class Interpreter {
 	}
 
 	public static void main(String args[]) throws IOException, ByteCodeException, InstantiationException, ClassNotFoundException,IllegalAccessException {
-                String sourceFile = "";	
-                String byteCodeFile ="";
+                String sourceFile;	
+                String byteCodeFile;
                 if (args.length == 0) {
 			System.out.println("***Incorrect usage, try: java interpreter.Interpreter <file>");
 			System.exit(1);
 		}
                 
+                // Check for the debug argument, second argument is the file with .x(Source Code), .x.cod(ByteCodes)
                 if(args[0].equals("-d"))
                 {
                     sourceFile = args[1] + ".x";
