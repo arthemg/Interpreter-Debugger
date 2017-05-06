@@ -33,7 +33,7 @@ public class ByteCodeLoader
 
     /**
      * Walk line by line check if code exists and create codes newInstance
-     * also init all if any argumetns are included with the bytecode
+     * also init all if any arguments are included with the bytecode
      * @return
      * @throws IOException
      * @throws InstantiationException
