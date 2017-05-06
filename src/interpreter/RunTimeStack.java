@@ -146,6 +146,25 @@ public class RunTimeStack
     }
     
     /**
+     * Load the offset on to the stack
+     * @param offset
+     * @return 
+     */
+    int load(int offset) 
+    {
+        int topFrame = 0;
+        
+        if(!framePointer.isEmpty())
+        {
+            topFrame = (framePointer.peek()) + 1;
+        }
+       
+        int getVal  = (int)runStack.get(topFrame + offset);
+        this.push(getVal);
+        return getVal;
+    }
+    
+    /**
      * Walk through all args in the runstack and return vector of said args
      * @return 
      */
@@ -215,24 +234,12 @@ public class RunTimeStack
 
     }
     
+    /**
+     * Get stack pointer
+     * @return 
+     */
     public int getStackPointer()
     {
         return this.stackPointer;
-    }
-
-    int load(int offset) 
-    {
-        int topFrame = 0;
-        
-        if(!framePointer.isEmpty())
-        {
-            //make sure we addjust by +1 to use correct count
-            topFrame = (framePointer.peek()) + 1;
-        }
-       
-        
-        int getVal  = (int)runStack.get(topFrame + offset);
-        this.push(getVal);
-        return getVal;
-    }
+    }   
 }
