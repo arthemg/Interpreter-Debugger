@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package interpreter.debugger;
-import interpreter.CodeTable;
 
 import interpreter.ByteCodeException;
 
