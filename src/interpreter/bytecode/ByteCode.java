@@ -40,7 +40,7 @@ public abstract class ByteCode
         return this.byteCodeName;
     }
     /**
-     * Setter for actuall byte code e.g. LIT, HALT etc
+     * Setter for actual byte code e.g. LIT, HALT etc
      * @param newByteCode 
      */
     public void setByteCode(String newByteCode)
