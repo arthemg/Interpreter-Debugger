@@ -93,7 +93,7 @@ public static class bpTracker
         
         //Read source file and initialize all the source lines and breakpoints in a vector
         this.source = new BufferedReader(new FileReader(sourceFile));
-        String currentString = "";
+        String currentString;
         do{
             currentString = this.source.readLine();
             if(currentString != null)
