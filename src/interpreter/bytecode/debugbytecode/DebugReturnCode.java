@@ -28,6 +28,8 @@ public class DebugReturnCode extends ReturnCode
        //Cast VirtualMachine into DebuggerVM
         DebuggerVM debugVM = (DebuggerVM) vm;
         
+        debugVM.displayReturnTrace();
+        
         debugVM.popFctEnvRecord();
    }
 }
