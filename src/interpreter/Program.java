@@ -132,6 +132,7 @@ public class Program
                 case "DebugCallCode":
                     callCode = (DebugCallCode) bytecode;
                     codeLabel = callCode.getAddress();
+                    break;
             }
            
             if (!byteCodeHash.containsKey(codeLabel))
