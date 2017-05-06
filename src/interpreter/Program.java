@@ -95,6 +95,7 @@ public class Program
                         case "DebugCallCode":
                             callCode = (DebugCallCode) byteCode;
                             callCode.setAddress(Integer.toString(address));
+                            break;
                     }
                 }
             }
