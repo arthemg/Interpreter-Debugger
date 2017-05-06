@@ -91,6 +91,14 @@ public class RunTimeStack
     }
     
     /**
+     * Check if the RunStack is empty
+     */
+    public boolean empty()
+    {
+        return runStack.isEmpty();
+    }
+    
+    /**
      * Check if we have anything on the stack if not set frame to zero 
      * otherwise set the offset and the values
      * @param offset
@@ -115,7 +123,7 @@ public class RunTimeStack
     }
     
     /**
-     * Check if theare any frames on stack if so return the top value
+     * Check if the are any frames on stack if so return the top value
      * and push it onto the stack
      * @param offset
      * @return 
